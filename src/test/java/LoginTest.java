@@ -1,5 +1,3 @@
-package ru.yandex.practicum.tests;
-
 import io.qameta.allure.*;
 import org.junit.After;
 import org.junit.Before;
