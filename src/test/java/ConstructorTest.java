@@ -17,16 +17,11 @@ public class ConstructorTest extends BaseTest {
     @Test
     @Description("Переход к разделу 'Булки' работает корректно")
     @Severity(SeverityLevel.NORMAL)
+    @Step("Переход к разделу 'Булки'")
     public void testNavigationToBunsSection() {
         MainPage mainPage = new MainPage(driver);
-
-        // Сначала переходим в другой раздел, чтобы потом проверить переход к булкам
         mainPage.clickSaucesSection();
-
-        // Теперь переходим к разделу "Булки"
         mainPage.clickBunsSection();
-
-        // Проверяем, что раздел "Булки" активен
         assertTrue("Раздел 'Булки' должен быть активным после клика по нему",
                 mainPage.isBunsSectionActive());
     }
@@ -34,13 +29,10 @@ public class ConstructorTest extends BaseTest {
     @Test
     @Description("Переход к разделу 'Соусы' работает корректно")
     @Severity(SeverityLevel.NORMAL)
+    @Step("Переход к разделу 'Соусы'")
     public void testNavigationToSaucesSection() {
         MainPage mainPage = new MainPage(driver);
-
-        // Переходим к разделу "Соусы"
         mainPage.clickSaucesSection();
-
-        // Проверяем, что раздел "Соусы" активен
         assertTrue("Раздел 'Соусы' должен быть активным после клика по нему",
                 mainPage.isSaucesSectionActive());
     }
@@ -48,13 +40,10 @@ public class ConstructorTest extends BaseTest {
     @Test
     @Description("Переход к разделу 'Начинки' работает корректно")
     @Severity(SeverityLevel.NORMAL)
+    @Step("Переход к разделу 'Начинки'")
     public void testNavigationToFillingsSection() {
         MainPage mainPage = new MainPage(driver);
-
-        // Переходим к разделу "Начинки"
         mainPage.clickFillingsSection();
-
-        // Проверяем, что раздел "Начинки" активен
         assertTrue("Раздел 'Начинки' должен быть активным после клика по нему",
                 mainPage.isFillingsSectionActive());
     }
@@ -62,20 +51,15 @@ public class ConstructorTest extends BaseTest {
     @Test
     @Description("Переключение между всеми разделами конструктора работает корректно")
     @Severity(SeverityLevel.NORMAL)
+    @Step("Переключение между всеми разделами конструктора")
     public void testSectionSwitching() {
         MainPage mainPage = new MainPage(driver);
-
-        // Переходим к разделу "Соусы"
         mainPage.clickSaucesSection();
         assertTrue("Раздел 'Соусы' должен быть активным",
                 mainPage.isSaucesSectionActive());
-
-        // Переходим к разделу "Начинки"
         mainPage.clickFillingsSection();
         assertTrue("Раздел 'Начинки' должен быть активным",
                 mainPage.isFillingsSectionActive());
-
-        // Возвращаемся к разделу "Булки"
         mainPage.clickBunsSection();
         assertTrue("Раздел 'Булки' должен быть активным",
                 mainPage.isBunsSectionActive());

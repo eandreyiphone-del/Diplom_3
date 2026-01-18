@@ -24,7 +24,6 @@ public class RegistrationTest extends BaseTest {
     @Override
     @After
     public void tearDown() {
-        // Удаляем созданного пользователя через API
         if (createdUserToken != null) {
             UserApiClient.deleteUser(createdUserToken);
         }
@@ -33,47 +32,38 @@ public class RegistrationTest extends BaseTest {
     @Test
     @Description("Успешная регистрация с валидными данными")
     @Severity(SeverityLevel.CRITICAL)
+    @Step("Успешная регистрация с валидными данными")
     public void testSuccessfulRegistration() {
-        // Генерируем тестовые данные с помощью DataFaker
         String name = TestDataGenerator.generateRandomName();
         String email = TestDataGenerator.generateRandomEmail();
         String password = TestDataGenerator.generateValidPassword();
 
-        // Переходим на страницу регистрации
         MainPage mainPage = new MainPage(driver);
         RegisterPage registerPage = mainPage.clickLoginButton().clickRegisterLink();
-
-        // Регистрируемся
         registerPage.register(name, email, password);
 
-        // Проверяем, что произошел переход на /login
+        // Сохраняем токен ДЛЯ УДАЛЕНИЯ ПОСЛЕ ТЕСТА
+        createdUserToken = UserApiClient.loginUser(email, password);
+
+        // Только после сохранения токена делаем утверждение
         assertTrue("После успешной регистрации должен быть переход на страницу входа",
                 driver.getCurrentUrl().contains("/login"));
-
-        // Получаем токен для удаления пользователя
-        createdUserToken = UserApiClient.loginUser(email, password);
     }
 
     @Test
     @Description("Регистрация с паролем менее 6 символов показывает ошибку")
     @Severity(SeverityLevel.NORMAL)
+    @Step("Регистрация с паролем менее 6 символов")
     public void testRegistrationWithInvalidPassword() {
-        // Генерируем тестовые данные с помощью DataFaker
         String name = TestDataGenerator.generateRandomName();
         String email = TestDataGenerator.generateRandomEmail();
-        String invalidPassword = TestDataGenerator.generateInvalidPassword(); // менее 6 символов
+        String invalidPassword = TestDataGenerator.generateInvalidPassword();
 
-        // Переходим на страницу регистрации
         MainPage mainPage = new MainPage(driver);
         RegisterPage registerPage = mainPage.clickLoginButton().clickRegisterLink();
-
-        // Пытаемся зарегистрироваться с некорректным паролем
         registerPage.tryRegisterWithError(name, email, invalidPassword);
-
-        // Проверяем, что отображается сообщение об ошибке
         assertTrue("Должно отображаться сообщение об ошибке для некорректного пароля",
                 registerPage.isErrorMessageDisplayed());
-
         String errorMessage = registerPage.getErrorMessage();
         assertFalse("Сообщение об ошибке не должно быть пустым",
                 errorMessage.isEmpty());
@@ -82,17 +72,12 @@ public class RegistrationTest extends BaseTest {
     @Test
     @Description("Навигация с регистрации на вход работает корректно")
     @Severity(SeverityLevel.MINOR)
+    @Step("Навигация с регистрации на вход")
     public void testNavigationToLoginFromRegistration() {
-        // Переходим на страницу регистрации
         MainPage mainPage = new MainPage(driver);
         RegisterPage registerPage = mainPage.clickLoginButton().clickRegisterLink();
-
-        // Нажимаем ссылку "Войти"
         registerPage.clickLoginLink();
-
-        // Проверяем, что перешли на страницу входа
-        String currentUrl = driver.getCurrentUrl();
         assertTrue("Должен быть переход на страницу входа",
-                currentUrl.contains("login"));
+                driver.getCurrentUrl().contains("login"));
     }
 }
