@@ -36,4 +36,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/.idea/
+/.idea/  //Папка .idea добавлена в .gitignore.

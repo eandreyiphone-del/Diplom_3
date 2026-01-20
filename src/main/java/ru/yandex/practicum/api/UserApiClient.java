@@ -1,5 +1,6 @@
 package ru.yandex.practicum.api;
 
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import ru.yandex.practicum.model.User;
@@ -23,6 +24,7 @@ public class UserApiClient {
     /**
      * Создает пользователя через API
      */
+    @Step("Создать пользователя через API")
     public static String createUser(User user) {
         Response response = given()
                 .header("Content-Type", "application/json")
@@ -39,6 +41,7 @@ public class UserApiClient {
     /**
      * Удаляет пользователя через API
      */
+    @Step("Удалить пользователя через API")
     public static boolean deleteUser(String accessToken) {
         if (accessToken == null) {
             return false;
@@ -55,6 +58,7 @@ public class UserApiClient {
     /**
      * Выполняет вход пользователя через API
      */
+    @Step("Авторизация пользователя через API")
     public static String loginUser(String email, String password) {
         User loginData = new User(email, password, null);
 

@@ -15,7 +15,6 @@ public class ConstructorTest extends BaseTest {
     @Test
     @Description("Переход к разделу 'Булки' работает корректно")
     @Severity(SeverityLevel.NORMAL)
-    @Step("Переход к разделу 'Булки'")
     public void testNavigationToBunsSection() {
         MainPage mainPage = new MainPage(driver);
         mainPage.clickSaucesSection();
@@ -27,7 +26,6 @@ public class ConstructorTest extends BaseTest {
     @Test
     @Description("Переход к разделу 'Соусы' работает корректно")
     @Severity(SeverityLevel.NORMAL)
-    @Step("Переход к разделу 'Соусы'")
     public void testNavigationToSaucesSection() {
         MainPage mainPage = new MainPage(driver);
         mainPage.clickSaucesSection();
@@ -38,7 +36,6 @@ public class ConstructorTest extends BaseTest {
     @Test
     @Description("Переход к разделу 'Начинки' работает корректно")
     @Severity(SeverityLevel.NORMAL)
-    @Step("Переход к разделу 'Начинки'")
     public void testNavigationToFillingsSection() {
         MainPage mainPage = new MainPage(driver);
         mainPage.clickFillingsSection();
@@ -49,7 +46,6 @@ public class ConstructorTest extends BaseTest {
     @Test
     @Description("Переключение между всеми разделами конструктора работает корректно")
     @Severity(SeverityLevel.NORMAL)
-    @Step("Переключение между всеми разделами конструктора")
     public void testSectionSwitching() {
         MainPage mainPage = new MainPage(driver);
         mainPage.clickSaucesSection();
